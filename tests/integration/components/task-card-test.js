@@ -8,6 +8,10 @@ import moment from 'moment';
 import { Ability } from 'ember-can';
 import DS from 'ember-data';
 import stubService from 'code-corps-ember/tests/helpers/stub-service';
+import {
+  assertTooltipNotRendered,
+  assertTooltipNotVisible
+} from 'code-corps-ember/tests/helpers/ember-tooltips';
 
 const { PromiseObject } = DS;
 
@@ -292,4 +296,25 @@ test('assignment dropdown does not render if user has no ability', function(asse
   page.taskAssignment.assignedUser.as((user) => {
     assert.equal(user.icon.url, 'test.png');
   });
+});
+
+test('assignment dropdown assigns selected user', function(assert) {
+  let task = { id: 'task' };
+  let user1 = {
+    id: 'user1',
+    username: 'testuser1',
+    photoThumbUrl: 'test1.png'
+  };
+  let user2 = {
+    id: 'user2',
+    username: 'testuser2',
+    photoThumbUrl: 'test2.png'
+  };
+  let users = [user1, user2];
+
+  setProperties(this, { task, users });
+  set(this, 'selectedOption', { user1 });
+  renderPage();
+  assertTooltipNotVisible(assert),
+  assertTooltipNotRendered(assert);
 });
