@@ -13,8 +13,6 @@ export default {
 
   issueLink,
 
-  unselectedItem,
-
   number: {
     scope: '[data-test-task-number]'
   },
@@ -31,5 +29,7 @@ export default {
 
   title: {
     scope: '[data-test-task-title]'
-  }
+  },
+
+  unselectedItem
 };
